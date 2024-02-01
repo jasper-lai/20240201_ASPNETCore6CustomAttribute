@@ -21,11 +21,53 @@ public IActionResult Index() {
 
 ## 演練細節
 
-
-
-
-
 ### 步驟_1: 建立 ASP.NET Core 6 MVC 專案
+
+### 步驟_2: 加入 MyLogActionFilter.cs
+
+```csharp
+public class MyLogActionFilter : IActionFilter
+{
+	private readonly ILogger<MyLogActionFilter> _logger;
+
+	public MyLogActionFilter(ILogger<MyLogActionFilter> logger)
+	{
+		_logger = logger;
+	}
+
+	public void OnActionExecuting(ActionExecutingContext context)
+	{
+		_logger.LogInformation("Action is executing.");
+	}
+
+	public void OnActionExecuted(ActionExecutedContext context)
+	{
+		_logger.LogInformation("Action executed.");
+	}
+}
+```
+
+### 步驟_3: 加入 MyLogAttribute.cs
+
+直接採用 public class MyAttribute : ActionFilterAttribute 會失敗, 因為沒有實作 IFilterFactory 的 CreateInstance() method !!!   
+
+這裡必須實作 IFilterFactory 的 CreateInstance() 方法, 透過 IServiceProvider 去取得預計在 DI 註冊的 MyLogActionFilter 物件.  
+
+```csharp
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+public class MyLogAttribute : Attribute, IFilterFactory, IFilterMetadata
+//public class MyAttribute : ActionFilterAttribute
+{
+	public bool IsReusable => false;
+
+	public IFilterMetadata CreateInstance(IServiceProvider serviceProvider)
+	{
+		return serviceProvider.GetRequiredService<MyLogActionFilter>();
+	}
+}
+```
+
+
 
 ## 結論
 
