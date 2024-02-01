@@ -1,7 +1,10 @@
+using ASPNETCore6CustomAttribute.Filters;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<MyLogActionFilter>();
 
 var app = builder.Build();
 

@@ -67,6 +67,18 @@ public class MyLogAttribute : Attribute, IFilterFactory, IFilterMetadata
 }
 ```
 
+### 步驟_4: 在 Program.cs 註冊 MyLogActionFilter
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<MyLogActionFilter>();
+
+var app = builder.Build();
+```
+
 
 
 ## 結論
