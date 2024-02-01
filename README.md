@@ -121,4 +121,8 @@ ServiceFilter:
 缺點: 相較於TypeFilter, 它提供的自定義能力和靈活性可能會略低.
 ```
 
+* <a href="https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-6.0" target="_blank">(Microsoft Learn) Filters in ASP.NET Core</a>  
+> 這篇描述 ASP.NET Core Filters 的流程. 有 2 張重要的圖, 節錄如下:
 
+![ASP.NET Core Filters 1](pictures/21-ASP.NET_Core_Filters_1.png)  
+![ASP.NET Core Filters 2](pictures/22-ASP.NET_Core_Filters_2.png)  
