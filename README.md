@@ -3,7 +3,9 @@ How to write Custom Attribute with DI in ASP.NET Core 6 MVC
 
 ## 前言
 
-由於 ASP.NET Core 6 MVC 專案採用 DI (Dependency Injection) 的方式, 有一些相關的 自訂屬性 (Custom Attribute) 也想採用 DI; 以下採用 MyLogAttribute 為例. 在 HomeController 裡有以下程式段, 會出現 CS0181 及 CS0120 的編譯錯誤. 
+由於 ASP.NET Core 6 MVC 專案採用 DI (Dependency Injection) 的方式, 有一些相關的 自訂屬性 (Custom Attribute) 也想採用 DI. 
+
+原本程式碼是在 MyLogAttribute 裡面自行 new Logger(), 在套用屬性時, 是用 [MyLogAttribute]; 改採 DI 後, 變成建構子要傳入 ILogger 的參數, 在 HomeController 的 Index() method, 要改成以下的方式, 但編譯會出現 CS0181 及 CS0120 的編譯錯誤.  
 
 ```csharp
 [MyLogAttribute(_logger)]
@@ -12,7 +14,7 @@ public IActionResult Index() {
 }
 ```
 
-參考文件1.. 為 CS0181 的說明, 它提到自訂屬性無法傳入物件參數, 且必須為常數值.  
+參考文件1.. 為 CS0181 的說明, 它提到自訂屬性傳入的參數, 不可以是物件變數, 必須為常數值.  
 本文主要採 參考文件2.. 的方法2 (ServiceFilter) 進行演練及實作.  
 
 完整範例可由 GitHub 下載.  
@@ -94,7 +96,9 @@ public IActionResult Index()
 
 ## 結論
 
+一旦習慣用 DI 以後, 真的很難回去自己去建立物件實體了, 會想要盡可能將程式都用 DI 的方式處理, 以利程式之間的關聯為鬆散耦合的狀態.  
 
+當然, 有些程式明顯容易 DI (例如 service 層), 但有些就不是那麼明顯 (例如 自訂屬性), 需要額外作一些處理.    
 ## 參考文件
 
 * <a href="https://learn.microsoft.com/en-us/dotnet/visual-basic/misc/bc30045" target="_blank">1.. (Microsoft Learn) [CS0181] Attribute constructor has a parameter of type '<type>', which is not an integral</a>  
