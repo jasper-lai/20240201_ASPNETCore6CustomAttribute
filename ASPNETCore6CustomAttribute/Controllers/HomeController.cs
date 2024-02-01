@@ -20,6 +20,7 @@
 
         public IActionResult Privacy()
         {
+            _logger.LogInformation("------");
             return View();
         }
 
