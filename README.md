@@ -79,6 +79,18 @@ builder.Services.AddScoped<MyLogActionFilter>();
 var app = builder.Build();
 ```
 
+### 步驟_5: 在 HomeController 的 Index() 方法, 套用 [MyLogAttribute] 屬性
+
+```csharp
+[MyLogAttribute]
+public IActionResult Index()
+{
+	return View();
+}
+```
+
+### 步驟_6: 實測驗證
+
 
 
 ## 結論

@@ -1,5 +1,6 @@
 ﻿namespace ASPNETCore6CustomAttribute.Controllers
 {
+    using ASPNETCore6CustomAttribute.Filters;
     using ASPNETCore6CustomAttribute.Models;
     using Microsoft.AspNetCore.Mvc;
     using System.Diagnostics;
@@ -13,6 +14,7 @@
             _logger = logger;
         }
 
+        [MyLogAttribute]
         public IActionResult Index()
         {
             return View();
